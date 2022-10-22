@@ -13,6 +13,20 @@ const { validate } = require('../utils');
  * @return {*} next() / throws error
  */
 
+const checkFileExistance = (file = undefined) => {
+  if (!file) {
+    throw Object.assign({}, new Error(), {
+      status: 400,
+      data: {},
+      errors: {
+        file: ['CSV file is required'],
+      },
+      message: 'CSV file is required',
+    });
+  }
+  return true;
+};
+
 const validateRequest =
   (type, valdationSource = 'body') =>
   async (req, res, next) => {
@@ -26,6 +40,9 @@ const validateRequest =
           break;
         case 'headers':
           validate(type, req.headers);
+          break;
+        case 'file':
+          checkFileExistance(req?.file);
           break;
         default:
           validate(type, {});

@@ -1,6 +1,7 @@
 /**
  * Load Dependencies
  */
+const { parseCSVDataToJSON } = require('./csv');
 const { validate, getRules } = require('./validate');
 
 /**
@@ -9,4 +10,5 @@ const { validate, getRules } = require('./validate');
 module.exports = {
   validate,
   getRules,
+  parseCSVDataToJSON,
 };

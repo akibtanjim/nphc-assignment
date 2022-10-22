@@ -4,7 +4,7 @@
  * Load Dependencies
  */
 const { health } = require('./health');
-const { add: employeeAdd } = require('./employee');
+const { add: employeeAdd, uploadCSV } = require('./employee');
 
 /**
  * Expose to use in other files
@@ -12,4 +12,5 @@ const { add: employeeAdd } = require('./employee');
 module.exports = {
   health,
   employeeAdd,
+  uploadCSV,
 };

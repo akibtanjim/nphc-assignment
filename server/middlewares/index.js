@@ -5,6 +5,7 @@
  */
 const notFound = require('./notFound');
 const validateRequest = require('./validateRequest');
+const csvUpload = require('./csvUpload');
 
 /**
  * Expose to use in other files
@@ -12,4 +13,5 @@ const validateRequest = require('./validateRequest');
 module.exports = {
   notFound,
   validateRequest,
+  csvUpload,
 };

@@ -15,7 +15,9 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         validate: {
           notEmpty: true,
-          isAlphanumeric: true,
+          isAlphanumeric: {
+            msg: 'id must be alphanumeric',
+          },
         },
       },
       userName: {
@@ -25,7 +27,9 @@ module.exports = (sequelize, DataTypes) => {
         unique: true,
         validate: {
           notEmpty: true,
-          isAlphanumeric: true,
+          isAlphanumeric: {
+            msg: 'Username must be alphanumeric',
+          },
         },
       },
       fullName: {

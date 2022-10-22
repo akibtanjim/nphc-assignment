@@ -14,6 +14,7 @@ const dbDialect = process.env.DB_DIALECT;
 const dbPort = process.env.DB_PORT;
 const apiRateLimitInterval = process.env.API_RATE_LIMIT_INTERVAL_IN_MIN;
 const apiMaxRequestLimit = process.env.API_MAX_REQUEST_LIMIT;
+const csvMaxUploadSize = process.env.CSV_MAX_UPLOAD_SIZE * 1024 * 1024;
 
 /**
  * Expose variables so that other modules can use them
@@ -33,6 +34,7 @@ const variables = {
   dbPort,
   apiRateLimitInterval,
   apiMaxRequestLimit,
+  csvMaxUploadSize,
 };
 
 module.exports = variables;
