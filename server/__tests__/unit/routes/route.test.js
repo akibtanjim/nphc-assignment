@@ -49,4 +49,19 @@ describe('routes', () => {
         );
     });
   });
+  describe('/api/v1/employees/upload', () => {
+    it('Should POST /api/v1/employees/upload with success ', async () => {
+      await request(app)
+        .post(`/api/v1/employees/upload`)
+        .attach('file', `${__dirname}/../../../csv-data/test.csv`)
+        .then((response) => {
+          return Promise.all([
+            expect(response.statusCode).toBe(201),
+            expect(response.body).toHaveProperty('status'),
+            expect(response.body).toHaveProperty('data'),
+            expect(response.body).toHaveProperty('message'),
+          ]);
+        });
+    });
+  });
 });

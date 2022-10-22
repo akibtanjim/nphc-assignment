@@ -35,10 +35,14 @@ const parseCSVDataToJSON = ({ path = undefined }) => {
         data.push(item);
       }
     }
-    fs.unlinkSync(`${__basedir}/${path}`);
+    if (process.env.NODE_ENV !== 'test') {
+      fs.unlinkSync(`${__basedir}/${path}`);
+    }
     return data;
   } catch (err) {
-    fs.unlinkSync(`${__basedir}/${path}`);
+    if (process.env.NODE_ENV !== 'test') {
+      fs.unlinkSync(`${__basedir}/${path}`);
+    }
     const message =
       err?.message &&
       (err?.message === 'Empty CSV Uploaded' ||

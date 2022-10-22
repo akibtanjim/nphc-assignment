@@ -2,7 +2,7 @@
 
 // Load Cutom Dependencies
 const { Op } = require('sequelize');
-const { employee } = require('../../../models');
+const { employee, sequelize } = require('../../../models');
 
 let employeeDetails = {};
 describe('models/employee', () => {
@@ -24,5 +24,57 @@ describe('models/employee', () => {
       expect(result).toHaveProperty('createdAt'),
       expect(result).toHaveProperty('updatedAt'),
     ]);
+  });
+  it('Should create employees in bulk', async () => {
+    const transaction = await sequelize.transaction();
+    try {
+      const result = await employee.bulkCreate(
+        [
+          {
+            id: 'e0001',
+            userName: 'hpotter',
+            fullName: 'Harry Potter',
+            salary: '1234.00',
+          },
+          {
+            id: 'e0002',
+            userName: 'rwesley',
+            fullName: 'Ron Weasley',
+            salary: '19234.50',
+          },
+          {
+            id: 'e0003',
+            userName: 'ssnape',
+            fullName: 'Severus Snape',
+            salary: '4000.0',
+          },
+          {
+            id: 'e0004',
+            userName: 'rhagrid',
+            fullName: 'Rubeus Hagrid',
+            salary: '3999.999',
+          },
+          {
+            id: 'e0005',
+            userName: 'voldemort',
+            fullName: 'Lord Voldemort',
+            salary: '523.4',
+          },
+        ],
+        {
+          transaction,
+          updateOnDuplicate: ['userName', 'fullName', 'salary'],
+          returning: true,
+          validate: true,
+        }
+      );
+      await transaction.commit();
+      return Promise.all([
+        expect(Array.isArray(result)).toBe(true),
+        expect(result.length || 0).toBe(5),
+      ]);
+    } catch (error) {
+      await transaction.rollback();
+    }
   });
 });

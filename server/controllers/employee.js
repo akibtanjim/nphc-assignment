@@ -40,7 +40,8 @@ exports.uploadCSV = async (req, res) => {
     return successResponseHandler(
       res,
       response,
-      'Successfully Added Employees!'
+      'Successfully Added Employees!',
+      201
     );
   } catch (error) {
     return errorResponseHandler(error, req, res);
