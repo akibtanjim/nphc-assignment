@@ -5,7 +5,14 @@ const Validator = require('validatorjs');
 /**
  * List of validation rules
  */
-const validationRules = {};
+const validationRules = {
+  employeeAdd: {
+    id: 'required|string|alpha_num',
+    userName: 'required|string|alpha_num',
+    fullName: 'required|string',
+    salary: 'required|numeric',
+  },
+};
 
 /**
  * Get validation rules for a specific type
@@ -14,6 +21,8 @@ const validationRules = {};
  */
 const getRules = (type) => {
   switch (type) {
+    case 'employeeAdd':
+      return validationRules.employeeAdd;
     default:
       return {};
   }

@@ -17,7 +17,19 @@ const validateRequest =
   (type, valdationSource = 'body') =>
   async (req, res, next) => {
     try {
-      validate(type, valdationSource === 'query' ? req.query : req.body);
+      switch (valdationSource) {
+        case 'query':
+          validate(type, req.query);
+          break;
+        case 'body':
+          validate(type, req.body);
+          break;
+        case 'headers':
+          validate(type, req.headers);
+          break;
+        default:
+          validate(type, {});
+      }
       await next();
     } catch (error) {
       errorResponseHandler(error, req, res);

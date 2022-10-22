@@ -18,7 +18,7 @@ const { health } = require('../controllers');
 const router = express.Router();
 
 /**
- * auth related routes
+ * health related routes
  */
 router.get('/health', health);
 

@@ -9,6 +9,7 @@ const express = require('express');
  * Load custom dependencies
  */
 const healthRoutes = require('./health');
+const employeeRoutes = require('./employee');
 
 /**
  * Create Router
@@ -16,7 +17,8 @@ const healthRoutes = require('./health');
 
 const routers = express.Router();
 
-// Auth related routes
+// All routes
 routers.use('/', healthRoutes);
+routers.use('/', employeeRoutes);
 
 module.exports = routers;

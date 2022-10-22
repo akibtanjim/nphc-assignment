@@ -7,8 +7,8 @@
  * @param {*} message
  * @returns response
  */
-exports.successResponseHandler = (res, data, message) =>
-  res.status(200).json({
+exports.successResponseHandler = (res, data, message, statusCode = 200) =>
+  res.status(statusCode).json({
     status: 'success',
     data,
     message,
