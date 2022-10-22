@@ -1,0 +1,12 @@
+.DS_Store
+*.vs/
+node_modules/
+npm-debug.log
+*.vs/*
+.env
+.vscode/
+.history
+*lock.json
+*error.log
+Dockerfile.dev
+docker-compose.dev.yml
