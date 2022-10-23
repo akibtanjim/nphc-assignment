@@ -23,7 +23,11 @@ const router = express.Router();
 /**
  * employee related routes
  */
-router.get('/employees', validateRequest('employeeList'), employeeList);
+router.get(
+  '/employees',
+  validateRequest('employeeList', 'query'),
+  employeeList
+);
 router.post('/employees', validateRequest('employeeAdd'), employeeAdd);
 router.post(
   '/employees/upload',

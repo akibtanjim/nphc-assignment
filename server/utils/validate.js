@@ -15,7 +15,7 @@ const validationRules = {
   employeeList: {
     page: 'required_if:page,|integer',
     limit: 'required_if:limit,|integer',
-    sort: 'required_if:limit,|string',
+    sort: 'required_if:limit,|string|in:id_asc,id_desc,userName_asc,userName_desc,fullName_asc,fullName_desc,salary_asc,salary_desc,default',
   },
 };
 
