@@ -1,5 +1,5 @@
-import React from "react";
-import { Row, Col, Container, Button, Table } from "react-bootstrap";
+import React, { useState } from "react";
+import { Row, Col, Container, Button, Modal } from "react-bootstrap";
 
 // custom components
 import withLayout from "../components/hoc/withLayout";
@@ -9,8 +9,13 @@ import "../assets/css/Home.css";
 import SearchInput from "../components/SearchInput";
 import CustomTable from "../components/CustomTable";
 import CustomPagination from "../components/CustomPagination";
+import FileUploadMoal from "../components/Modals/FileUploadModal";
 
 const Home = () => {
+  const [showBlukUploadModal, setShowBulkUploadModal] = useState(false);
+
+  const handleClose = () => setShowBulkUploadModal(false);
+  const handleShow = () => setShowBulkUploadModal(true);
   return (
     <div className="home-container">
       <Container>
@@ -43,7 +48,12 @@ const Home = () => {
               </Col>
               <Col md={2} className="no-padding-right">
                 <div className="d-flex flex-row align-items-center h-100 button-container">
-                  <Button variant="outline-primary">Bulk Upload</Button>
+                  <Button
+                    variant="outline-primary"
+                    onClick={() => handleShow()}
+                  >
+                    Bulk Upload
+                  </Button>
                 </div>
               </Col>
               <Col md={12}>
@@ -57,6 +67,10 @@ const Home = () => {
               </Col>
             </Row>
           </Col>
+          <FileUploadMoal
+            showBlukUploadModal={showBlukUploadModal}
+            handleClose={handleClose}
+          />
         </Row>
       </Container>
     </div>
