@@ -142,8 +142,59 @@ const getPaginatedEmployees = async ({
     .then((data) => getPaginatedData(data, page, limit));
 };
 
+/**
+ * Get Error Info For Update Request
+ * @param {*} error
+ * @returns object
+ */
+const getUpdateErrorInfo = (error) => {
+  let errors = [];
+  const errorList = {};
+  JSON.stringify(error?.errors || [], (key, value) => {
+    errors = JSON.parse(JSON.stringify(value));
+  });
+  errors.map((er) => {
+    errorList[er.path] = [er.message];
+  });
+  return errorList;
+};
+
+/**
+ * Update Employee Info
+ * @param {*} id
+ * @param {*} data
+ * @returns
+ */
+const updateEmployee = async (id, data) => {
+  const employee = await employeeModel.findByPk(id);
+  if (!employee) {
+    throw Object.assign({}, new Error(), {
+      status: 400,
+      data: {},
+      errors: {
+        id: ['Invalid employee id provided'],
+      },
+      message: `Invalid Parameter(s): id`,
+    });
+  }
+  return employee.update(data).catch((error) => {
+    const customErrorInfo = getUpdateErrorInfo(error) || {};
+    throw Object.keys(customErrorInfo)?.length === 0
+      ? error
+      : Object.assign({}, new Error(), {
+          status: 400,
+          data: {},
+          errors: customErrorInfo,
+          message: `Invalid Parameter(s): ${Object.keys(customErrorInfo)
+            .map((item) => item)
+            .join(',')}`,
+        });
+  });
+};
+
 module.exports = {
   createEmployee,
   bulkCreateEmployee,
   getPaginatedEmployees,
+  updateEmployee,
 };

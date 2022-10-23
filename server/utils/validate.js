@@ -17,6 +17,14 @@ const validationRules = {
     limit: 'required_if:limit,|integer',
     sort: 'required_if:limit,|string|in:id_asc,id_desc,userName_asc,userName_desc,fullName_asc,fullName_desc,salary_asc,salary_desc,default',
   },
+  employeeEdit: {
+    userName:
+      'required_if:userName,|string|alpha_num|required_without_all:fullName,salary',
+    fullName:
+      'required_if:fullName,|string|required_without_all:userName,salary',
+    salary:
+      'required_if:salary,|numeric|required_without_all:userName,fullName',
+  },
 };
 
 /**
@@ -30,6 +38,8 @@ const getRules = (type) => {
       return validationRules.employeeAdd;
     case 'employeeList':
       return validationRules.employeeList;
+    case 'employeeEdit':
+      return validationRules.employeeEdit;
     default:
       return {};
   }

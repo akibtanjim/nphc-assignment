@@ -11,7 +11,12 @@ const path = require('path');
  * Load custom dependencies
  */
 
-const { employeeAdd, uploadCSV, employeeList } = require('../controllers');
+const {
+  employeeAdd,
+  uploadCSV,
+  employeeList,
+  employeeEdit,
+} = require('../controllers');
 const { csvUpload, validateRequest } = require('../middlewares');
 
 /**
@@ -34,5 +39,6 @@ router.post(
   [csvUpload, validateRequest('', 'file')],
   uploadCSV
 );
+router.put('/employees/:id', validateRequest('employeeEdit'), employeeEdit);
 
 module.exports = router;

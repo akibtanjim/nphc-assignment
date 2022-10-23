@@ -5,6 +5,7 @@ const {
   createEmployee,
   bulkCreateEmployee,
   getPaginatedEmployees,
+  updateEmployee,
 } = require('../services');
 
 /**
@@ -77,6 +78,38 @@ exports.list = async (req, res) => {
       res,
       response,
       'Successfully Fetched Employees!'
+    );
+  } catch (error) {
+    return errorResponseHandler(error, req, res);
+  }
+};
+
+/**
+ * Employee Info Update
+ * @param {*} req
+ * @param {*} res
+ * @returns object
+ */
+
+exports.edit = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const {
+      userName = undefined,
+      fullName = undefined,
+      salary = undefined,
+    } = req.body;
+    const response = await updateEmployee(id, {
+      userName,
+      fullName,
+      salary,
+    });
+    console.log('response', response);
+    return successResponseHandler(
+      res,
+      {},
+      'Successfully Updated Employee!',
+      204
     );
   } catch (error) {
     return errorResponseHandler(error, req, res);

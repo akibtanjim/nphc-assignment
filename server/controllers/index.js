@@ -8,6 +8,7 @@ const {
   add: employeeAdd,
   uploadCSV,
   list: employeeList,
+  edit: employeeEdit,
 } = require('./employee');
 
 /**
@@ -18,4 +19,5 @@ module.exports = {
   employeeAdd,
   uploadCSV,
   employeeList,
+  employeeEdit,
 };
