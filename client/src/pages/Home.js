@@ -1,12 +1,8 @@
 import React from "react";
-import Layout from "../components/Layout";
+import withLayout from "../components/hoc/withLayout";
 
 const Home = () => {
-  return (
-    <Layout>
-      <h1>Home</h1>
-    </Layout>
-  );
+  return <h1>Home</h1>;
 };
 
-export default Home;
+export default withLayout(Home);
