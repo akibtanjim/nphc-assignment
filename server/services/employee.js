@@ -163,7 +163,7 @@ const getUpdateErrorInfo = (error) => {
  * Update Employee Info
  * @param {*} id
  * @param {*} data
- * @returns
+ * @returns object / throw error
  */
 const updateEmployee = async (id, data) => {
   const employee = await employeeModel.findByPk(id);
@@ -192,9 +192,30 @@ const updateEmployee = async (id, data) => {
   });
 };
 
+/**
+ * Delete Employee Info
+ * @param {*} id
+ * @returns
+ */
+const deleteEmployee = async (id) => {
+  const employee = await employeeModel.findByPk(id);
+  if (!employee) {
+    throw Object.assign({}, new Error(), {
+      status: 400,
+      data: {},
+      errors: {
+        id: ['Invalid employee id provided'],
+      },
+      message: `Invalid Parameter(s): id`,
+    });
+  }
+  return employee.destroy();
+};
+
 module.exports = {
   createEmployee,
   bulkCreateEmployee,
   getPaginatedEmployees,
   updateEmployee,
+  deleteEmployee,
 };

@@ -16,6 +16,7 @@ const {
   uploadCSV,
   employeeList,
   employeeEdit,
+  employeeDelete,
 } = require('../controllers');
 const { csvUpload, validateRequest } = require('../middlewares');
 
@@ -40,5 +41,6 @@ router.post(
   uploadCSV
 );
 router.put('/employees/:id', validateRequest('employeeEdit'), employeeEdit);
+router.delete('/employees/:id', employeeDelete);
 
 module.exports = router;

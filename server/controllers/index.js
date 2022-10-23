@@ -9,6 +9,7 @@ const {
   uploadCSV,
   list: employeeList,
   edit: employeeEdit,
+  delete: employeeDelete,
 } = require('./employee');
 
 /**
@@ -20,4 +21,5 @@ module.exports = {
   uploadCSV,
   employeeList,
   employeeEdit,
+  employeeDelete,
 };

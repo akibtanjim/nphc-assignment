@@ -7,6 +7,7 @@ const {
   bulkCreateEmployee,
   getPaginatedEmployees,
   updateEmployee,
+  deleteEmployee,
 } = require('./employee');
 
 /**
@@ -17,4 +18,5 @@ module.exports = {
   bulkCreateEmployee,
   getPaginatedEmployees,
   updateEmployee,
+  deleteEmployee,
 };
