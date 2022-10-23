@@ -113,4 +113,13 @@ describe('routes', () => {
         );
     });
   });
+  describe('/api/v1/employees', () => {
+    it(`Should DELETE /api/v1/employees/${employee.id}`, async () => {
+      await request(app)
+        .delete(`/api/v1/employees/${employee.id}`)
+        .then((response) =>
+          Promise.all([expect(response.statusCode).toBe(204)])
+        );
+    });
+  });
 });

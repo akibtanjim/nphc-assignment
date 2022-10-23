@@ -8,6 +8,7 @@ const {
   bulkCreateEmployee,
   getPaginatedEmployees,
   updateEmployee,
+  deleteEmployee,
 } = require('../../../services');
 let employee = {};
 describe('services/employee', () => {
@@ -63,6 +64,19 @@ describe('services/employee', () => {
         salary: Number((Math.random() * (10000 - 1) + 1) * 2.5).toFixed(2),
         id: undefined,
       });
+      return Promise.all([
+        expect(result).toHaveProperty('id'),
+        expect(result).toHaveProperty('userName'),
+        expect(result).toHaveProperty('fullName'),
+        expect(result).toHaveProperty('salary'),
+        expect(result).toHaveProperty('createdAt'),
+        expect(result).toHaveProperty('updatedAt'),
+      ]);
+    });
+  });
+  describe('deleteEmployee', () => {
+    it('Should successfully delete employee', async () => {
+      const result = await deleteEmployee(employee.id);
       return Promise.all([
         expect(result).toHaveProperty('id'),
         expect(result).toHaveProperty('userName'),

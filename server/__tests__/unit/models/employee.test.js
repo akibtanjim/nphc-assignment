@@ -103,13 +103,19 @@ describe('models/employee', () => {
         returning: true,
       }
     );
+    console.log(result);
     return Promise.all([
-      expect(result).toHaveProperty('id'),
-      expect(result).toHaveProperty('userName'),
-      expect(result).toHaveProperty('fullName'),
-      expect(result).toHaveProperty('salary'),
-      expect(result).toHaveProperty('createdAt'),
-      expect(result).toHaveProperty('updatedAt'),
+      expect(typeof result).toBe('object'),
+      expect(Array.isArray(result)).toBe(true),
     ]);
+  });
+
+  it('Should delete employee information', async () => {
+    const result = await employeeModel.destroy({
+      where: {
+        id: employeeDetails.id,
+      },
+    });
+    return Promise.all([expect(result).toBe(1)]);
   });
 });
