@@ -7,8 +7,9 @@ const {
   createEmployee,
   bulkCreateEmployee,
   getPaginatedEmployees,
+  updateEmployee,
 } = require('../../../services');
-
+let employee = {};
 describe('services/employee', () => {
   describe('createEmployee', () => {
     it('Should successfully create new employee', async () => {
@@ -18,6 +19,7 @@ describe('services/employee', () => {
         fullName: 'কর্মচারী',
         salary: Math.random() * 2.5,
       });
+      employee = result;
       return Promise.all([
         expect(result).toHaveProperty('id'),
         expect(result).toHaveProperty('userName'),
@@ -51,6 +53,23 @@ describe('services/employee', () => {
         expect(result).toHaveProperty('items'),
         expect(result).toHaveProperty('totalPages'),
         expect(result).toHaveProperty('currentPage'),
+      ]);
+    });
+  });
+  describe('updateEmployee', () => {
+    it('Should successfully update employee', async () => {
+      const result = await updateEmployee(employee.id, {
+        ...employee,
+        salary: Number((Math.random() * (10000 - 1) + 1) * 2.5).toFixed(2),
+        id: undefined,
+      });
+      return Promise.all([
+        expect(result).toHaveProperty('id'),
+        expect(result).toHaveProperty('userName'),
+        expect(result).toHaveProperty('fullName'),
+        expect(result).toHaveProperty('salary'),
+        expect(result).toHaveProperty('createdAt'),
+        expect(result).toHaveProperty('updatedAt'),
       ]);
     });
   });

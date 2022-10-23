@@ -4,6 +4,7 @@ const {
   employeeAdd,
   uploadCSV,
   employeeList,
+  employeeEdit,
 } = require('../../../controllers');
 
 describe('controllers/employee', () => {
@@ -176,6 +177,31 @@ describe('controllers/employee', () => {
       const req = mock.mockRequest();
       const res = mock.mockResponse();
       await employeeList(req, res);
+      expect(res.status).toHaveBeenCalledTimes(1);
+      expect(res.json).toHaveBeenCalledTimes(1);
+    });
+  });
+  describe('edit', () => {
+    it('Should return with success', async () => {
+      const mock = {
+        mockRequest: () => {
+          const req = {};
+          req.body = jest.fn().mockReturnValue(req);
+          req.params = jest.fn().mockReturnValue(req);
+          return req;
+        },
+
+        mockResponse: () => {
+          const res = {};
+          res.json = jest.fn().mockReturnValue(res);
+          res.status = jest.fn().mockReturnValue(res);
+          res.json = jest.fn().mockReturnValue(res);
+          return res;
+        },
+      };
+      const req = mock.mockRequest();
+      const res = mock.mockResponse();
+      await employeeEdit(req, res);
       expect(res.status).toHaveBeenCalledTimes(1);
       expect(res.json).toHaveBeenCalledTimes(1);
     });

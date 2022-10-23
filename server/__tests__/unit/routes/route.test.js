@@ -2,7 +2,7 @@
 const request = require('supertest');
 
 const { app } = require('../../../app');
-
+let employee = {};
 describe('routes', () => {
   describe('/api/v1/health', () => {
     it('Should GET /api/v1/health with success ', async () => {
@@ -25,14 +25,15 @@ describe('routes', () => {
   });
   describe('/api/v1/employees', () => {
     it('Should POST /api/v1/employees with success ', async () => {
+      employee = {
+        id: `emp${new Date().getTime()}`,
+        userName: `empName${new Date().getTime()}`,
+        fullName: 'কর্মচারী',
+        salary: Math.random() * 2.5,
+      };
       await request(app)
         .post(`/api/v1/employees`)
-        .send({
-          id: `emp${new Date().getTime()}`,
-          userName: `empName${new Date().getTime()}`,
-          fullName: 'কর্মচারী',
-          salary: Math.random() * 2.5,
-        })
+        .send(employee)
         .then((response) =>
           Promise.all([
             expect(response.statusCode).toBe(201),
@@ -98,6 +99,18 @@ describe('routes', () => {
             expect(response.body.data.currentPage).toBe(2),
           ]);
         });
+    });
+  });
+  describe('/api/v1/employees', () => {
+    it(`Should PUT /api/v1/employees/${employee.id}`, async () => {
+      await request(app)
+        .put(`/api/v1/employees/${employee.id}`)
+        .send({
+          salary: Number((Math.random() * (10000 - 1) + 1) * 2.5).toFixed(2),
+        })
+        .then((response) =>
+          Promise.all([expect(response.statusCode).toBe(204)])
+        );
     });
   });
 });
