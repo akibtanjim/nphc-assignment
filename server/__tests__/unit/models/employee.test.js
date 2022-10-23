@@ -3,6 +3,7 @@
 // Load Cutom Dependencies
 const { Op } = require('sequelize');
 const { employee, sequelize } = require('../../../models');
+const employeeModel = require('../../../models').employee;
 
 let employeeDetails = {};
 describe('models/employee', () => {
@@ -76,5 +77,22 @@ describe('models/employee', () => {
     } catch (error) {
       await transaction.rollback();
     }
+  });
+  it('Should fetch employee list with pagination', async () => {
+    const result = await employeeModel.findAndCountAll({
+      limit: 10,
+      offset: 0,
+      order: [['createdAt', 'DESC']],
+      where: {
+        salary: {
+          [Op.between]: [0, 99999999.99],
+        },
+      },
+    });
+    return Promise.all([
+      expect(typeof result).toBe('object'),
+      expect(result).toHaveProperty('count'),
+      expect(result).toHaveProperty('rows'),
+    ]);
   });
 });

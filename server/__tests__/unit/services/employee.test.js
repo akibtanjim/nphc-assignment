@@ -3,7 +3,11 @@
 'use strict';
 
 // Load Custom Dependencies
-const { createEmployee, bulkCreateEmployee } = require('../../../services');
+const {
+  createEmployee,
+  bulkCreateEmployee,
+  getPaginatedEmployees,
+} = require('../../../services');
 
 describe('services/employee', () => {
   describe('createEmployee', () => {
@@ -32,6 +36,21 @@ describe('services/employee', () => {
       return Promise.all([
         expect(Array.isArray(result)).toBe(true),
         expect(result.length || 0).toBe(5),
+      ]);
+    });
+  });
+  describe('getPaginatedEmployees', () => {
+    it('Should successfully employee list with pagination', async () => {
+      const result = await getPaginatedEmployees({
+        limit: 10,
+        page: 1,
+      });
+      return Promise.all([
+        expect(typeof result).toBe('object'),
+        expect(result).toHaveProperty('totalItems'),
+        expect(result).toHaveProperty('items'),
+        expect(result).toHaveProperty('totalPages'),
+        expect(result).toHaveProperty('currentPage'),
       ]);
     });
   });

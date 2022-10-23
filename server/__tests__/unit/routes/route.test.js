@@ -64,4 +64,40 @@ describe('routes', () => {
         });
     });
   });
+  describe('/api/v1/employees', () => {
+    it('Should GET /api/v1/employees', async () => {
+      await request(app)
+        .get(`/api/v1/employees`)
+        .then((response) => {
+          return Promise.all([
+            expect(response.statusCode).toBe(200),
+            expect(response.body).toHaveProperty('status'),
+            expect(response.body).toHaveProperty('data'),
+            expect(response.body).toHaveProperty('message'),
+            expect(response.body.data).toHaveProperty('totalItems'),
+            expect(response.body.data).toHaveProperty('items'),
+            expect(response.body.data).toHaveProperty('totalPages'),
+            expect(response.body.data).toHaveProperty('currentPage'),
+            expect(response.body.data.currentPage).toBe(1),
+          ]);
+        });
+    });
+    it('Should GET /api/v1/employees?page=2', async () => {
+      await request(app)
+        .get(`/api/v1/employees?page=2`)
+        .then((response) => {
+          return Promise.all([
+            expect(response.statusCode).toBe(200),
+            expect(response.body).toHaveProperty('status'),
+            expect(response.body).toHaveProperty('data'),
+            expect(response.body).toHaveProperty('message'),
+            expect(response.body.data).toHaveProperty('totalItems'),
+            expect(response.body.data).toHaveProperty('items'),
+            expect(response.body.data).toHaveProperty('totalPages'),
+            expect(response.body.data).toHaveProperty('currentPage'),
+            expect(response.body.data.currentPage).toBe(2),
+          ]);
+        });
+    });
+  });
 });
