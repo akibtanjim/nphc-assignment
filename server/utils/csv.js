@@ -12,7 +12,7 @@ const parseCSVDataToJSON = ({ path = undefined }) => {
       });
     }
     const csv = fs.readFileSync(path);
-    const csvData = csv.toString().split('\r') || [];
+    const csvData = csv.toString().split('\n') || [];
     if (csvData && csvData.length && csvData[0] === '') {
       throw Object.assign({}, new Error(), {
         status: 400,
@@ -25,8 +25,11 @@ const parseCSVDataToJSON = ({ path = undefined }) => {
     const headers = ['id', 'userName', 'fullName', 'salary'];
     for (let i = 0; i < csvData.length - 1; i++) {
       let item = {};
+      const values = csvData[i]
+        .replace('\n', '')
+        .split(',')
+        .map((val) => val.replace(/\r$/, ''));
       if (csvData[i] && csvData[i].indexOf('#') === -1) {
-        const values = csvData[i].replace('\n', '').split(',');
         for (const j in headers) {
           if (values[j].includes(', ')) {
             item[headers[j]] = values[j].split(', ').map((item) => item.trim());
