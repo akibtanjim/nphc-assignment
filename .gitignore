@@ -12,3 +12,4 @@ Dockerfile.dev
 docker-compose.dev.yml
 test-script.js
 demo.csv
+public/uploads
