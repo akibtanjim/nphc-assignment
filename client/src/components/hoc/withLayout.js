@@ -7,7 +7,7 @@ const Layout = (Component) => {
   return ({ children }) => {
     return (
       <Row>
-        <Col md={2} className="hidden-xs h-screen left-panel">
+        <Col md={2} className="hidden-xs left-panel">
           <LeftPanel />
         </Col>
         <div className="col-md-10 col-sm-12">

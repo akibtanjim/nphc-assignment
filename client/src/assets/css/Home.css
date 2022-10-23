@@ -1,0 +1,29 @@
+.home-container {
+    padding: 3em;
+}
+.price-spearator {
+    display: flex;
+    align-items: center;
+    font-size: larger;
+    justify-content: center;
+    margin-bottom: 0;
+    margin-right: 0.75rem;
+}
+.no-padding-right {
+    padding-right: 0 !important;
+}
+
+@media (max-width: 767px) {
+    .home-container {
+      padding: 1rem 0.5rem;
+    }
+    .no-padding-right {
+        margin-bottom: 1rem;
+    }
+    .button-container {
+        justify-content: flex-end;
+    }
+    .ml-1 {
+        margin-left: 0;
+    }
+}
