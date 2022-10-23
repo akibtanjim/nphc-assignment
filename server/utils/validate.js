@@ -12,6 +12,11 @@ const validationRules = {
     fullName: 'required|string',
     salary: 'required|numeric',
   },
+  employeeList: {
+    page: 'required_if:page,|integer',
+    limit: 'required_if:limit,|integer',
+    sort: 'required_if:limit,|string',
+  },
 };
 
 /**
@@ -23,6 +28,8 @@ const getRules = (type) => {
   switch (type) {
     case 'employeeAdd':
       return validationRules.employeeAdd;
+    case 'employeeList':
+      return validationRules.employeeList;
     default:
       return {};
   }

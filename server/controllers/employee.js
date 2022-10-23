@@ -1,9 +1,11 @@
 'use strict';
 
-const { ValidationError } = require('sequelize');
 const { errorResponseHandler, successResponseHandler } = require('../helpers');
-const { createEmployee } = require('../services');
-const { bulkCreateEmployee } = require('../services/employee');
+const {
+  createEmployee,
+  bulkCreateEmployee,
+  getPaginatedEmployees,
+} = require('../services');
 
 /**
  * Add Employee
@@ -42,6 +44,39 @@ exports.uploadCSV = async (req, res) => {
       response,
       'Successfully Added Employees!',
       201
+    );
+  } catch (error) {
+    return errorResponseHandler(error, req, res);
+  }
+};
+
+/**
+ * Employee List With Pagination
+ * @param {*} req
+ * @param {*} res
+ * @returns object
+ */
+
+exports.list = async (req, res) => {
+  try {
+    const {
+      page = 1,
+      limit = 10,
+      sort = 'default',
+      minSalary = 0,
+      maxSalary = 99999999.99,
+    } = req.query;
+    const response = await getPaginatedEmployees({
+      page,
+      size: limit,
+      sort,
+      minSalary,
+      maxSalary,
+    });
+    return successResponseHandler(
+      res,
+      response,
+      'Successfully Fetched Employees!'
     );
   } catch (error) {
     return errorResponseHandler(error, req, res);

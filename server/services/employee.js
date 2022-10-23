@@ -1,9 +1,13 @@
 'use strict';
 
-const { ValidationError } = require('sequelize');
+const { ValidationError, Op } = require('sequelize');
 const { sequelize } = require('../models');
 const util = require('util');
-const { parseCSVDataToJSON } = require('../utils');
+const {
+  parseCSVDataToJSON,
+  getLimitOffset,
+  getPaginatedData,
+} = require('../utils');
 
 // Load Custom Dependencies
 const employeeModel = require('../models').employee;
@@ -80,7 +84,66 @@ const bulkCreateEmployee = async (file = {}) => {
   return employeeBulkInsert(csvData);
 };
 
+/**
+ * Prepare Order By Fields
+ * @param {*} sort
+ * @returns array
+ */
+const getOrderByOptions = (sort = 'default') => {
+  switch (sort) {
+    case 'id_asc':
+      return [['id', 'ASC']];
+    case 'id_desc':
+      return [['id', 'DESC']];
+    case 'userName_asc':
+      return [['userName', 'ASC']];
+    case 'userName_desc':
+      return [['userName', 'DESC']];
+    case 'fullName_asc':
+      return [['fullName', 'ASC']];
+    case 'fullName_desc':
+      return [['fullName', 'DESC']];
+    case 'salary_asc':
+      return [['salary', 'ASC']];
+    case 'salary_desc':
+      return [['salary', 'DESC']];
+    default:
+      return [['createdAt', 'DESC']];
+  }
+};
+
+/**
+ * Get Employee list with pagination
+ * @param {*} page
+ * @param {*} size
+ * @param {*} sort
+ * @returns array
+ */
+const getPaginatedEmployees = async ({
+  page = 1,
+  size = 10,
+  sort = 'default',
+  minSalary = 0,
+  maxSalary = 99999999.99,
+}) => {
+  const { limit, offset } = getLimitOffset(page, size);
+  const order = getOrderByOptions(sort);
+  return employeeModel
+    .findAndCountAll({
+      limit,
+      offset,
+      order,
+      where: {
+        salary: {
+          [Op.between]: [minSalary, maxSalary],
+        },
+      },
+    })
+    .then((data) => getPaginatedData(data, page, limit));
+};
+
 module.exports = {
   createEmployee,
   bulkCreateEmployee,
+  getPaginatedEmployees,
 };

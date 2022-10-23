@@ -38,6 +38,9 @@ module.exports = {
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
       },
     });
+    await queryInterface.addIndex('employees', ['salary'], {
+      name: 'salary_index',
+    });
   },
 
   async down(queryInterface, Sequelize) {

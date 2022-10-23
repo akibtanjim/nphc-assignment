@@ -10,3 +10,5 @@ npm-debug.log
 *error.log
 Dockerfile.dev
 docker-compose.dev.yml
+test-script.js
+demo.csv

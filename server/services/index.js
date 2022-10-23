@@ -2,7 +2,11 @@
  * Load Dependencies
  */
 
-const { createEmployee, bulkCreateEmployee } = require('./employee');
+const {
+  createEmployee,
+  bulkCreateEmployee,
+  getPaginatedEmployees,
+} = require('./employee');
 
 /**
  * Expose to use in other files
@@ -10,4 +14,5 @@ const { createEmployee, bulkCreateEmployee } = require('./employee');
 module.exports = {
   createEmployee,
   bulkCreateEmployee,
+  getPaginatedEmployees,
 };
