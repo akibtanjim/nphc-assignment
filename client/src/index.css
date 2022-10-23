@@ -38,6 +38,9 @@
   color: #ffff;
   font-weight: bold;
 }
+.w-50 {
+  width: 50%;
+}
 
 @media (max-width: 767px) {
   .hidden-xs {
