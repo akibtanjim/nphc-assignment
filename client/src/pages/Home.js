@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Row, Col, Container, Button, Spinner } from "react-bootstrap";
+import React, { useEffect, useState, useCallback } from "react";
+import { Row, Col, Container, Button } from "react-bootstrap";
 
 // custom components
 import withLayout from "../components/hoc/withLayout";
@@ -7,13 +7,15 @@ import SearchInput from "../components/SearchInput";
 import EmployeeTable from "../components/EmployeeTable";
 import CustomPagination from "../components/CustomPagination";
 import FileUploadMoal from "../components/Modals/FileUploadModal";
+import Loader from "../components/Loader";
 
 // Services
 import { getEmployees } from "../services/employee";
 
 // css
 import "../assets/css/Home.css";
-import Loader from "../components/Loader";
+
+let searchTimeout;
 
 const Home = () => {
   const [loading, setLoading] = useState(true);
@@ -21,40 +23,53 @@ const Home = () => {
   const [employees, setEmployees] = useState([]);
   const [paginationInfo, setPaginationInfo] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
+  const [minSalary, setMinSalary] = useState("");
+  const [minSalaryError, setMinSalaryError] = useState(undefined);
+  const [maxSalary, setMaxSalary] = useState("");
+  const [maxSalaryError, setMaxSalaryError] = useState(undefined);
+  const [limit] = useState(10);
 
   const handleClose = () => setShowBulkUploadModal(false);
   const handleShow = () => setShowBulkUploadModal(true);
 
-  useEffect(() => {
-    getEmployeeList();
-  }, []);
-  const getEmployeeList = (page = 1) => {
-    getEmployees(page)
-      .then((response) => {
-        setEmployees(
-          response?.data?.data.items.map((item) => ({
-            ...item,
-            salary: parseFloat(item.salary),
-          })) || []
-        );
-        setPaginationInfo({
-          ...response?.data?.data,
-          items: undefined,
-          currentPage: undefined,
-        });
-        setCurrentPage(parseInt(response?.data?.data?.currentPage));
-        setTimeout(() => {
+  const getEmployeeList = useCallback(
+    (page = 1) => {
+      getEmployees(page, limit, minSalary, maxSalary)
+        .then((response) => {
+          setEmployees(
+            response?.data?.data.items.map((item) => ({
+              ...item,
+              salary: parseFloat(item.salary),
+            })) || []
+          );
+          setPaginationInfo({
+            ...response?.data?.data,
+            items: undefined,
+            currentPage: undefined,
+          });
+          setCurrentPage(parseInt(response?.data?.data?.currentPage));
+          setTimeout(() => {
+            setLoading(false);
+          }, 1000);
+        })
+        .catch((e) => {
+          setEmployees([]);
+          setPaginationInfo({});
+          setCurrentPage(1);
           setLoading(false);
-        }, 1000);
-      })
-      .catch((e) => {
-        console.log(e);
-        setEmployees([]);
-        setPaginationInfo({});
-        setCurrentPage(1);
-        setLoading(false);
-      });
-  };
+        });
+    },
+    [limit, maxSalary, minSalary]
+  );
+
+  const searchEmployees = useCallback(() => {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => {
+      if (!minSalaryError && !maxSalaryError) {
+        getEmployeeList(1);
+      }
+    }, 600);
+  }, [getEmployeeList, minSalaryError, maxSalaryError]);
 
   const onCurrentPageChange = (pageNumber) => {
     if (pageNumber > 0) {
@@ -62,6 +77,37 @@ const Home = () => {
       getEmployeeList(pageNumber);
     }
   };
+
+  const onMinSalaryChange = (e) => {
+    const value = e.target.value;
+    setMinSalary(value);
+    if (!isNaN(value)) {
+      setMinSalaryError(Number(value) > 0 ? false : true);
+    } else {
+      setMinSalaryError(true);
+    }
+  };
+
+  const onMaxSalaryChange = (e) => {
+    const value = e.target.value;
+    setMaxSalary(value);
+    if (!isNaN(value)) {
+      setMaxSalaryError(Number(value) > 0 ? false : true);
+    } else {
+      setMaxSalaryError(true);
+    }
+  };
+
+  useEffect(() => {
+    getEmployeeList();
+  }, [getEmployeeList]);
+
+  useEffect(() => {
+    if (minSalary !== "" || maxSalary !== "") {
+      searchEmployees();
+    }
+  }, [searchEmployees, minSalary, maxSalary]);
+
   return (
     <div className="home-container">
       <Container>
@@ -79,8 +125,15 @@ const Home = () => {
                   <SearchInput
                     heading={"Minimum salary"}
                     subHeading={"Enter amount"}
+                    onChange={onMinSalaryChange}
+                    value={minSalary}
                   />
                 </div>
+                {minSalaryError && (
+                  <p className="invalid-feedback d-block">
+                    Please enter a valid number! (Minimum Salary)
+                  </p>
+                )}
               </Col>
               <Col md={5} className="no-padding-right">
                 <div className="d-flex flex-row">
@@ -89,8 +142,15 @@ const Home = () => {
                     heading={"Maximum salary"}
                     subHeading={"Enter amount"}
                     containerClassName="max-heading-container"
+                    onChange={onMaxSalaryChange}
+                    value={maxSalary}
                   />
                 </div>
+                {maxSalaryError && (
+                  <p className="invalid-feedback d-block max-salary-error">
+                    Please enter a valid number! (Maximum Salary)
+                  </p>
+                )}
               </Col>
               <Col md={2} className="no-padding-right">
                 <div className="d-flex flex-row align-items-center h-100 button-container">
@@ -113,10 +173,7 @@ const Home = () => {
               {!loading && employees?.length > 0 && (
                 <>
                   <Col md={12}>
-                    <EmployeeTable
-                      headers={["Id", "Name", "Login", "Salary", "Action"]}
-                      data={employees}
-                    />
+                    <EmployeeTable data={employees} />
                   </Col>
                   <Col md={12}>
                     <CustomPagination

@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col, Container, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 
 import "../assets/css/SearchInput.css";
 
@@ -8,6 +8,8 @@ const SearchInput = ({
   subHeading,
   placeHolder = "",
   containerClassName = "",
+  onChange = () => {},
+  value = undefined,
 }) => {
   return (
     <div className="search-input">
@@ -20,8 +22,12 @@ const SearchInput = ({
         </div>
         <span className="doller-icon"> $ </span>
         <div className="input-container">
-          <Form.Control type="number" placeholder={placeHolder} />
-          <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+          <Form.Control
+            type="number"
+            placeholder={placeHolder}
+            value={value}
+            onChange={onChange}
+          />
         </div>
       </div>
     </div>

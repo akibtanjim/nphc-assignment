@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Row, Col } from "react-bootstrap";
 //custom components
 import LeftPanel from "../Layout/LeftPanel";
@@ -17,5 +18,7 @@ const Layout = (Component) => {
     );
   };
 };
-
+Layout.propTypes = {
+  Component: PropTypes.element.isRequired,
+};
 export default Layout;

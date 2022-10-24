@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Table } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -8,9 +9,8 @@ import useSortableData from "../hooks/useSortableData";
 // custom css
 import "../assets/css/EmployeeTable.css";
 
-const CustomTable = ({ headers = [], data = [] }) => {
+const EmployeeTable = ({ data = [] }) => {
   const { items, requestSort, sortConfig } = useSortableData(data);
-  console.log(items, sortConfig);
   return (
     <Table striped responsive="sm">
       <thead className="text-center">
@@ -159,4 +159,8 @@ const CustomTable = ({ headers = [], data = [] }) => {
   );
 };
 
-export default CustomTable;
+EmployeeTable.propTypes = {
+  data: PropTypes.array.isRequired,
+};
+
+export default EmployeeTable;
