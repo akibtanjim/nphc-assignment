@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
 import { Button, Modal, Form, FloatingLabel } from "react-bootstrap";
+import PropTypes from "prop-types";
 
 // css
 import "../../assets/css/EditModal.css";
+import { editEmployee } from "../../services/employee";
 
 const EmployeeEditModal = ({
   showEditModal,
   handleEditModalClose,
   selectedEmployee = {},
+  setReloadTable = () => {},
 }) => {
   const [fullName, setFullName] = useState("");
   const [userName, setUserName] = useState("");
@@ -25,9 +28,11 @@ const EmployeeEditModal = ({
       setFullName(selectedEmployee?.fullName);
       setUserName(selectedEmployee?.userName);
       setSalary(selectedEmployee?.salary);
+      setFullNameError(selectedEmployee?.fullName ? false : true);
+      setUserNameError(selectedEmployee?.userName ? false : true);
+      setSalaryError(selectedEmployee?.salary ? false : true);
     }
   }, [selectedEmployee]);
-
   const onFullNameChange = (e) => {
     const value = e.target.value;
     setFullName(value);
@@ -58,6 +63,38 @@ const EmployeeEditModal = ({
     }
   };
 
+  const onEditClick = () => {
+    setSetUploading(true);
+    editEmployee(
+      {
+        salary: salary && salary !== "" ? salary : undefined,
+        fullName: fullName && fullName !== "" ? fullName : undefined,
+        userName: userName && userName !== "" ? userName : undefined,
+      },
+      selectedEmployee?.id
+    )
+      .then((response) => {
+        setSetUploading(false);
+        setSuccessMessage(
+          response?.data?.message || "Employe Info Updated Successfully !"
+        );
+        setErrorMessage(undefined);
+        setTimeout(() => {
+          setSuccessMessage(undefined);
+          setFullNameError(false);
+          setUserNameError(false);
+          setSalaryError(false);
+          handleEditModalClose();
+          setReloadTable(true);
+        }, 2000);
+      })
+      .catch((e) => {
+        setSetUploading(false);
+        setErrorMessage("Unable to update employee information!");
+        setSuccessMessage(undefined);
+      });
+  };
+
   return (
     <Modal
       centered
@@ -73,6 +110,16 @@ const EmployeeEditModal = ({
         <Modal.Title>Edit Employee</Modal.Title>
       </Modal.Header>
       <Modal.Body>
+        {suceessMessage && (
+          <div className="alert alert-success" role="alert">
+            {suceessMessage}
+          </div>
+        )}
+        {errorMessage && (
+          <div className="alert alert-danger" role="alert">
+            {errorMessage}
+          </div>
+        )}
         <p className="edit-heading">Employee Id {selectedEmployee?.id}</p>
         <div className="edit-container">
           <FloatingLabel label="Name" className="mb-3">
@@ -133,9 +180,8 @@ const EmployeeEditModal = ({
         </Button>
         <Button
           variant="primary"
-          disabled={
-            !fullNameError || !userNameError || !salaryError || uploading
-          }
+          disabled={fullNameError || userNameError || salaryError || uploading}
+          onClick={onEditClick}
         >
           Edit
         </Button>
@@ -143,5 +189,10 @@ const EmployeeEditModal = ({
     </Modal>
   );
 };
-
+EmployeeEditModal.propTypes = {
+  showEditModal: PropTypes.bool.isRequired,
+  handleEditModalClose: PropTypes.func.isRequired,
+  selectedEmployee: PropTypes.object.isRequired,
+  setReloadTable: PropTypes.func.isRequired,
+};
 export default EmployeeEditModal;

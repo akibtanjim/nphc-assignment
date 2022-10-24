@@ -229,6 +229,7 @@ const Home = () => {
             showEditModal={showEditModal}
             handleEditModalClose={() => setShowEditModal(false)}
             selectedEmployee={selectedEmployee}
+            setReloadTable={setReloadTable}
           />
         </Row>
       </Container>

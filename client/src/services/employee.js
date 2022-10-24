@@ -15,10 +15,14 @@ export const getEmployees = async (
   );
 };
 
-export const bulkUploadEmployee = async (formData, setProgress) => {
+export const bulkUploadEmployee = async (formData) => {
   return axios.post(`${API_BASE_URL}/employees/upload`, formData, {
     headers: {
       "Content-Type": "multipart/form-data",
     },
   });
+};
+
+export const editEmployee = async (data, id) => {
+  return axios.put(`${API_BASE_URL}/employees/${id}`, data);
 };

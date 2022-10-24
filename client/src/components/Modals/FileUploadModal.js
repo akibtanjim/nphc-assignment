@@ -31,6 +31,7 @@ const FileUploadMoal = ({
         setError(false);
         setSetUploading(false);
         setSuccessMessage(response?.data?.message);
+        setErrorMessage(undefined);
         setTimeout(() => {
           setSuccessMessage(undefined);
           handleClose();
