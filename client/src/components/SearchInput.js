@@ -11,6 +11,7 @@ const SearchInput = ({
   containerClassName = "",
   onChange = () => {},
   value = undefined,
+  disableInput = false,
 }) => {
   return (
     <div className="search-input">
@@ -28,6 +29,7 @@ const SearchInput = ({
             placeholder={placeHolder}
             value={value}
             onChange={onChange}
+            disabled={disableInput}
           />
         </div>
       </div>
@@ -41,6 +43,7 @@ SearchInput.propTypes = {
   containerClassName: PropTypes.string,
   onChange: PropTypes.func,
   value: PropTypes.string,
+  disableInput: PropTypes.bool,
 };
 
 export default SearchInput;

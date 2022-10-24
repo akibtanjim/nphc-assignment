@@ -140,12 +140,14 @@ const Home = () => {
                     alt="search"
                     width={60}
                     height={60}
+                    className="hidden-xs"
                   />
                   <SearchInput
                     heading={"Minimum salary"}
                     subHeading={"Enter amount"}
                     onChange={onMinSalaryChange}
                     value={minSalary}
+                    disableInput={employees?.length > 0 ? false : true}
                   />
                 </div>
                 {minSalaryError && (
@@ -163,6 +165,7 @@ const Home = () => {
                     containerClassName="max-heading-container"
                     onChange={onMaxSalaryChange}
                     value={maxSalary}
+                    disableInput={employees?.length > 0 ? false : true}
                   />
                 </div>
                 {maxSalaryError && (
