@@ -53,6 +53,9 @@
 .cursor-pointer {
   cursor: pointer;
 }
+.disabled .page-link {
+  color: #6c757d !important;
+}
 
 @media (max-width: 767px) {
   .hidden-xs {
