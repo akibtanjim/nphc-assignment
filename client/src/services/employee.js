@@ -14,3 +14,11 @@ export const getEmployees = async (
     }${maxSalary ? `&maxSalary=${maxSalary}` : ""}`
   );
 };
+
+export const bulkUploadEmployee = async (formData, setProgress) => {
+  return axios.post(`${API_BASE_URL}/employees/upload`, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+};

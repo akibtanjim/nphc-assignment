@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Form } from "react-bootstrap";
 
 import "../assets/css/SearchInput.css";
@@ -32,6 +33,14 @@ const SearchInput = ({
       </div>
     </div>
   );
+};
+
+SearchInput.propTypes = {
+  subHeading: PropTypes.string.isRequired,
+  placeHolder: PropTypes.string,
+  containerClassName: PropTypes.string,
+  onChange: PropTypes.func,
+  value: PropTypes.string,
 };
 
 export default SearchInput;

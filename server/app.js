@@ -18,7 +18,7 @@ global.__basedir = __dirname;
 
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ limit: '100mb', extended: true }));
 
 if (process.env.NODE_ENV !== 'test') {
   app.use(logger(loggerOptions));

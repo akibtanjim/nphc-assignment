@@ -28,6 +28,7 @@ const Home = () => {
   const [maxSalary, setMaxSalary] = useState("");
   const [maxSalaryError, setMaxSalaryError] = useState(undefined);
   const [limit] = useState(10);
+  const [reloadTable, setReloadTable] = useState(false);
 
   const handleClose = () => setShowBulkUploadModal(false);
   const handleShow = () => setShowBulkUploadModal(true);
@@ -47,6 +48,7 @@ const Home = () => {
             items: undefined,
             currentPage: undefined,
           });
+          setReloadTable(false);
           setCurrentPage(parseInt(response?.data?.data?.currentPage));
           setTimeout(() => {
             setLoading(false);
@@ -107,6 +109,12 @@ const Home = () => {
       searchEmployees();
     }
   }, [searchEmployees, minSalary, maxSalary]);
+
+  useEffect(() => {
+    if (reloadTable) {
+      getEmployeeList();
+    }
+  }, [reloadTable, getEmployeeList]);
 
   return (
     <div className="home-container">
@@ -200,6 +208,7 @@ const Home = () => {
           <FileUploadMoal
             showBlukUploadModal={showBlukUploadModal}
             handleClose={handleClose}
+            setReloadTable={setReloadTable}
           />
         </Row>
       </Container>
