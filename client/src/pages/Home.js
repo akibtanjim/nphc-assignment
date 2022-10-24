@@ -119,6 +119,12 @@ const Home = () => {
     }
   }, [reloadTable, getEmployeeList]);
 
+  useEffect(() => {
+    if (!showEditModal) {
+      setSelectedEmployee({});
+    }
+  }, [showEditModal]);
+
   return (
     <div className="home-container">
       <Container>

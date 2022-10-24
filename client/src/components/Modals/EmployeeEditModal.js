@@ -59,7 +59,16 @@ const EmployeeEditModal = ({
   };
 
   return (
-    <Modal centered show={showEditModal} onHide={handleEditModalClose}>
+    <Modal
+      centered
+      show={showEditModal}
+      onHide={() => {
+        setFullNameError(false);
+        setUserNameError(false);
+        setSalaryError(false);
+        handleEditModalClose();
+      }}
+    >
       <Modal.Header closeButton>
         <Modal.Title>Edit Employee</Modal.Title>
       </Modal.Header>
@@ -112,7 +121,12 @@ const EmployeeEditModal = ({
       <Modal.Footer>
         <Button
           variant="secondary"
-          onClick={handleEditModalClose}
+          onClick={() => {
+            setFullNameError(false);
+            setUserNameError(false);
+            setSalaryError(false);
+            handleEditModalClose();
+          }}
           disabled={uploading}
         >
           Close
