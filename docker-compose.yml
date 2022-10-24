@@ -1,7 +1,7 @@
 version: '3.7'
 
 networks:
-  app-network:
+  nphc-network:
     driver: bridge
 
 volumes:
@@ -25,7 +25,23 @@ services:
     volumes:
       - dbdata:/var/lib/mysql/
     networks:
-      - app-network
+      - nphc-network
+
+  # NGINX
+  nginx:
+    container_name: nphc-assignment-nginx
+    depends_on:
+      - api
+      - client
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - nphc-network
       
   # Api 
   api:
@@ -36,11 +52,26 @@ services:
       - mysql
     volumes:
       - /app/node_modules
-      - ./server:/app:rw
+      - ./server:/app
     ports:
       - ${API_PORT}:3001
     container_name: nphc-assignment-backend
     restart: unless-stopped
     tty: true
     networks:
-      - app-network
+      - nphc-network
+
+  # Client
+  client:
+    stdin_open: true
+    container_name: nphc-assignment-frontend
+    build:
+      dockerfile: Dockerfile
+      context: ./client
+    volumes:
+      - /app/node_modules
+      - ./client:/app
+    ports:
+      - ${APP_PORT}:3000
+    networks:
+      - nphc-network
