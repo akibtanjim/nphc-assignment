@@ -9,7 +9,7 @@ import useSortableData from "../hooks/useSortableData";
 // custom css
 import "../assets/css/EmployeeTable.css";
 
-const EmployeeTable = ({ data = [], onEditClick }) => {
+const EmployeeTable = ({ data = [], onEditClick, onDeleteClick }) => {
   const { items, requestSort, sortConfig } = useSortableData(data);
   return (
     <Table striped responsive="sm">
@@ -152,7 +152,11 @@ const EmployeeTable = ({ data = [], onEditClick }) => {
                   icon="pencil"
                   onClick={() => onEditClick(item)}
                 />
-                <FontAwesomeIcon icon="trash" className="ml-1" />
+                <FontAwesomeIcon
+                  icon="trash"
+                  className="ml-1"
+                  onClick={() => onDeleteClick(item)}
+                />
               </td>
             </tr>
           );
@@ -165,6 +169,7 @@ const EmployeeTable = ({ data = [], onEditClick }) => {
 EmployeeTable.propTypes = {
   data: PropTypes.array.isRequired,
   onEditClick: PropTypes.func.isRequired,
+  onDeleteClick: PropTypes.func.isRequired,
 };
 
 export default EmployeeTable;

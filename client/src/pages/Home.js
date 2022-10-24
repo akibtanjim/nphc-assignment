@@ -15,6 +15,7 @@ import { getEmployees } from "../services/employee";
 // css
 import "../assets/css/Home.css";
 import EmployeeEditModal from "../components/Modals/EmployeeEditModal";
+import DeleteEmployeeModal from "../components/Modals/DeleteEmployeeModal";
 
 let searchTimeout;
 
@@ -32,6 +33,7 @@ const Home = () => {
   const [reloadTable, setReloadTable] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const handleClose = () => setShowBulkUploadModal(false);
   const handleShow = () => setShowBulkUploadModal(true);
@@ -120,10 +122,10 @@ const Home = () => {
   }, [reloadTable, getEmployeeList]);
 
   useEffect(() => {
-    if (!showEditModal) {
+    if (!showEditModal || !showDeleteModal) {
       setSelectedEmployee({});
     }
-  }, [showEditModal]);
+  }, [showEditModal, showDeleteModal]);
 
   return (
     <div className="home-container">
@@ -196,6 +198,10 @@ const Home = () => {
                         setSelectedEmployee(employee);
                         setShowEditModal(true);
                       }}
+                      onDeleteClick={(employee) => {
+                        setSelectedEmployee(employee);
+                        setShowDeleteModal(true);
+                      }}
                     />
                   </Col>
                   <Col md={12}>
@@ -228,6 +234,12 @@ const Home = () => {
           <EmployeeEditModal
             showEditModal={showEditModal}
             handleEditModalClose={() => setShowEditModal(false)}
+            selectedEmployee={selectedEmployee}
+            setReloadTable={setReloadTable}
+          />
+          <DeleteEmployeeModal
+            showDeleteModal={showDeleteModal}
+            handleDeleteModalClose={() => setShowDeleteModal(false)}
             selectedEmployee={selectedEmployee}
             setReloadTable={setReloadTable}
           />

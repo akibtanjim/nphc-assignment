@@ -26,3 +26,7 @@ export const bulkUploadEmployee = async (formData) => {
 export const editEmployee = async (data, id) => {
   return axios.put(`${API_BASE_URL}/employees/${id}`, data);
 };
+
+export const deleteEmployee = async (id) => {
+  return axios.delete(`${API_BASE_URL}/employees/${id}`);
+};

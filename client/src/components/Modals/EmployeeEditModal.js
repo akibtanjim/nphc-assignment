@@ -192,7 +192,7 @@ const EmployeeEditModal = ({
 EmployeeEditModal.propTypes = {
   showEditModal: PropTypes.bool.isRequired,
   handleEditModalClose: PropTypes.func.isRequired,
-  selectedEmployee: PropTypes.object.isRequired,
+  selectedEmployee: PropTypes.any.isRequired,
   setReloadTable: PropTypes.func.isRequired,
 };
 export default EmployeeEditModal;
