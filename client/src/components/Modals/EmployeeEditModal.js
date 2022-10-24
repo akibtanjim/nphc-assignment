@@ -12,6 +12,7 @@ const EmployeeEditModal = ({
   selectedEmployee = {},
   setReloadTable = () => {},
 }) => {
+  const [employeeId, setEmployeeId] = useState(undefined);
   const [fullName, setFullName] = useState("");
   const [userName, setUserName] = useState("");
   const [salary, setSalary] = useState("");
@@ -25,6 +26,7 @@ const EmployeeEditModal = ({
 
   useEffect(() => {
     if (Object.keys(selectedEmployee).length) {
+      setEmployeeId(selectedEmployee?.id);
       setFullName(selectedEmployee?.fullName);
       setUserName(selectedEmployee?.userName);
       setSalary(selectedEmployee?.salary);
@@ -71,7 +73,7 @@ const EmployeeEditModal = ({
         fullName: fullName && fullName !== "" ? fullName : undefined,
         userName: userName && userName !== "" ? userName : undefined,
       },
-      selectedEmployee?.id
+      employeeId
     )
       .then((response) => {
         setSetUploading(false);
@@ -120,7 +122,7 @@ const EmployeeEditModal = ({
             {errorMessage}
           </div>
         )}
-        <p className="edit-heading">Employee Id {selectedEmployee?.id}</p>
+        <p className="edit-heading">Employee Id {employeeId}</p>
         <div className="edit-container">
           <FloatingLabel label="Name" className="mb-3">
             <Form.Control
