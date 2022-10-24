@@ -1,0 +1,994 @@
+{
+	"info": {
+		"_postman_id": "45083a85-5a78-446c-b502-d9771ee2a00d",
+		"name": "NPHC Assignment",
+		"description": "# Introduction\n\nSimple Employee Management System\n\n# Overview\n\nThis assignment is for employee management system. Here user can bulk create/edit/delete and search employee. User can also filter data from a table.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3496605"
+	},
+	"item": [
+		{
+			"name": "Employee",
+			"item": [
+				{
+					"name": "List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/api/v1/employees?page=1&limit=5&sort=userName_desc&minSalary=1000&maxSalary=4000",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"v1",
+								"employees"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "5"
+								},
+								{
+									"key": "sort",
+									"value": "userName_desc"
+								},
+								{
+									"key": "minSalary",
+									"value": "1000"
+								},
+								{
+									"key": "maxSalary",
+									"value": "4000"
+								}
+							]
+						},
+						"description": "This api list all the employees with pagination. User can also sort result and search employee by their salary range\n\n| **Parameters** | **Required** | **Validation** | **Default** |\n| --- | --- | --- | --- |\n| request.query.page | No | intiger | 1 |\n| request.query.limit | No | integer | 10 |\n| request.query.minSalary | No | float | 0 |\n| request.query.maxSalary | No | float | 99999999.99 |\n| request.query.sort | No | id_asc /id_desc /userName_asc/userName_desc/fullName_asc/fullName_desc/salary_asc/salary_desc/default | default |"
+					},
+					"response": [
+						{
+							"name": "(Success) List",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3001/api/v1/employees?page=1&limit=5&sort=userName_desc&minSalary=1000&maxSalary=4000",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3001",
+									"path": [
+										"api",
+										"v1",
+										"employees"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "5"
+										},
+										{
+											"key": "sort",
+											"value": "userName_desc"
+										},
+										{
+											"key": "minSalary",
+											"value": "1000"
+										},
+										{
+											"key": "maxSalary",
+											"value": "4000"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 23 Oct 2022 07:21:58 GMT"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "1666509721"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1114"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"45a-6xGSToWmry6B+2olAOVb2cj4Xdg\""
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"totalItems\": 3439,\n        \"items\": [\n            {\n                \"id\": \"e16665091139664326615\",\n                \"userName\": \"empName16665091139669958564\",\n                \"fullName\": \"បក្សី\",\n                \"salary\": \"3221.91\",\n                \"createdAt\": \"2022-10-23T07:12:57.000Z\",\n                \"updatedAt\": \"2022-10-23T07:12:57.000Z\"\n            },\n            {\n                \"id\": \"e16665091139661206538\",\n                \"userName\": \"empName16665091139669957145\",\n                \"fullName\": \"পাখি\",\n                \"salary\": \"3373.56\",\n                \"createdAt\": \"2022-10-23T07:12:57.000Z\",\n                \"updatedAt\": \"2022-10-23T07:12:57.000Z\"\n            },\n            {\n                \"id\": \"e1666509113966856351\",\n                \"userName\": \"empName16665091139669924061\",\n                \"fullName\": \"បក្សី\",\n                \"salary\": \"2825.59\",\n                \"createdAt\": \"2022-10-23T07:12:57.000Z\",\n                \"updatedAt\": \"2022-10-23T07:12:57.000Z\"\n            },\n            {\n                \"id\": \"e16665091139662820430\",\n                \"userName\": \"empName16665091139669828220\",\n                \"fullName\": \"পাখি\",\n                \"salary\": \"2110.10\",\n                \"createdAt\": \"2022-10-23T07:12:57.000Z\",\n                \"updatedAt\": \"2022-10-23T07:12:57.000Z\"\n            },\n            {\n                \"id\": \"e16665091139663042247\",\n                \"userName\": \"empName16665091139669753867\",\n                \"fullName\": \"পাখি\",\n                \"salary\": \"3386.23\",\n                \"createdAt\": \"2022-10-23T07:12:57.000Z\",\n                \"updatedAt\": \"2022-10-23T07:12:57.000Z\"\n            }\n        ],\n        \"totalPages\": 688,\n        \"currentPage\": 1\n    },\n    \"message\": \"Successfully Fetched Employees!\"\n}"
+						},
+						{
+							"name": "(Error) List",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3001/api/v1/employees?page=1&limit=sasas&sort=userName_desc&minSalary=1000&maxSalary=4000",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3001",
+									"path": [
+										"api",
+										"v1",
+										"employees"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "sasas"
+										},
+										{
+											"key": "sort",
+											"value": "userName_desc"
+										},
+										{
+											"key": "minSalary",
+											"value": "1000"
+										},
+										{
+											"key": "maxSalary",
+											"value": "4000"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 23 Oct 2022 07:27:27 GMT"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "1666510107"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "122"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"7a-/VaYEE7NUk1EE0R4X1wiuXFGsRI\""
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"failed\",\n    \"data\": {},\n    \"errors\": {\n        \"limit\": [\n            \"The limit must be an integer.\"\n        ]\n    },\n    \"message\": \"Invalid Parameter(s): limit\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"description": "This API can be used to create an employee\n\n| **Parameters** | **Required** | **Validation** | **Default** |\n| --- | --- | --- | --- |\n| request.body.id | Yes | Alphanumeric | N/A |\n| request.body.userName | Yes | Alphanumeric | N/A |\n| request.body.fullName | Yes | String | N/A |\n| request.body.salary | Yes | Float | N/A |"
+					},
+					"response": [
+						{
+							"name": "(Success) Create",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"emp002\",\n    \"userName\": \"akibtanjim2\",\n    \"fullName\": \"কর্মচারী\",\n    \"salary\": 10.5\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3001/api/v1/employees",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3001",
+									"path": [
+										"api",
+										"v1",
+										"employees"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "58"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 22 Oct 2022 08:00:17 GMT"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "1666425670"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "239"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"ef-SIZy+DgMLopRJikt0WlB5bUb7y8\""
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"id\": \"emp002\",\n        \"userName\": \"akibtanjim2\",\n        \"fullName\": \"কর্মচারী\",\n        \"salary\": 10.5,\n        \"updatedAt\": \"2022-10-22T08:00:17.642Z\",\n        \"createdAt\": \"2022-10-22T08:00:17.642Z\"\n    },\n    \"message\": \"Successfully Added Employee!\"\n}"
+						},
+						{
+							"name": "(Error) Create",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": \"emp002\",\n    \"userName\": \"akibtanjim2@\",\n    \"fullName\": \"কর্মচারী\",\n    \"salary\": 10.5\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3001/api/v1/employees",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3001",
+									"path": [
+										"api",
+										"v1",
+										"employees"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 22 Oct 2022 08:01:26 GMT"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "1666425730"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "139"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"8b-x0IUiVCE5swEaAHNQEIf1PnlGyQ\""
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"failed\",\n    \"data\": {},\n    \"errors\": {\n        \"userName\": [\n            \"The userName field must be alphanumeric.\"\n        ]\n    },\n    \"message\": \"Invalid Parameter(s): userName\"\n}"
+						}
+					]
+				},
+				{
+					"name": "CSV Bulk Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "multipart/form-data",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/tanjimalakib/Personal/nphc-assignment/server/csv-data/test.csv"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/tanjimalakib/Desktop/test-duplicate-userName.csv",
+									"disabled": true
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/tanjimalakib/Desktop/test-invalid-userName.csv",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3001/api/v1/employees/upload",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"v1",
+								"employees",
+								"upload"
+							]
+						},
+						"description": "This api allows to bulk upload employees from csv.\n\n| **Parameter** | **Required** | **Validation** | **Default** |\n| --- | --- | --- | --- |\n| request.file | Yes | csv & <2 mb | N/A |"
+					},
+					"response": [
+						{
+							"name": "(Success) CSV Bulk Create",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "multipart/form-data",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/Users/tanjimalakib/Personal/nphc-assignment/server/csv-data/test.csv"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3001/api/v1/employees/upload",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3001",
+									"path": [
+										"api",
+										"v1",
+										"employees",
+										"upload"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "58"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 22 Oct 2022 18:32:28 GMT"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "1666463577"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "707"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2c3-XLnwCcLFY5SHlneOkEB8L449rgE\""
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"success\",\n    \"data\": [\n        {\n            \"id\": \"emp0004\",\n            \"userName\": \"hpotter\",\n            \"fullName\": \"Harry Potter\",\n            \"salary\": \"1234.51\",\n            \"createdAt\": \"2022-10-22T18:32:28.776Z\",\n            \"updatedAt\": \"2022-10-22T18:32:28.776Z\"\n        },\n        {\n            \"id\": \"e0006\",\n            \"userName\": \"e006\",\n            \"fullName\": \"Ron Weasley\",\n            \"salary\": \"19234.5\",\n            \"createdAt\": \"2022-10-22T18:32:28.776Z\",\n            \"updatedAt\": \"2022-10-22T18:32:28.776Z\"\n        },\n        {\n            \"id\": \"e0002\",\n            \"userName\": \"rwesley\",\n            \"fullName\": \"Ron Weasley\",\n            \"salary\": \"20000.89\",\n            \"createdAt\": \"2022-10-22T18:32:28.776Z\",\n            \"updatedAt\": \"2022-10-22T18:32:28.776Z\"\n        },\n        {\n            \"id\": \"e00023\",\n            \"userName\": \"rwesley1\",\n            \"fullName\": \"Weasley Ron\",\n            \"salary\": \"20000.89\",\n            \"createdAt\": \"2022-10-22T18:32:28.776Z\",\n            \"updatedAt\": \"2022-10-22T18:32:28.776Z\"\n        }\n    ],\n    \"message\": \"Successfully Added Employees!\"\n}"
+						},
+						{
+							"name": "(Error) CSV Bulk Create",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "multipart/form-data",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/Users/tanjimalakib/Personal/nphc-assignment/server/csv-data/test.csv",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3001/api/v1/employees/upload",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3001",
+									"path": [
+										"api",
+										"v1",
+										"employees",
+										"upload"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "58"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 22 Oct 2022 18:34:09 GMT"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "1666463697"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "105"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"69-zmExMJrxNkwLb4d+7OYq/E2FHGI\""
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"failed\",\n    \"data\": {},\n    \"errors\": {\n        \"file\": [\n            \"CSV file is required\"\n        ]\n    },\n    \"message\": \"CSV file is required\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Edit",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userName\": \"akibTanjim2\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/api/v1/employees/e16665118891161724501",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"v1",
+								"employees",
+								"e16665118891161724501"
+							]
+						},
+						"description": "This api can be used to update employee information\n\n| **Parameters** | **Required** | **Validation** | **Default** |\n| --- | --- | --- | --- |\n| request.body.id | if none of userName, fullName or salary is absent | Alphanumeric | N/A |\n| request.body.userName | if none of id, fullName or salary is absent | Alphanumeric | N/A |\n| request.body.fullName | if none of userName, id or salary is absent | String | N/A |\n| request.body.salary | if none of userName, fullName or id is absent | Float | N/A |"
+					},
+					"response": [
+						{
+							"name": "(Error)Edit",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3001/api/v1/employees/aaa",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3001",
+									"path": [
+										"api",
+										"v1",
+										"employees",
+										"aaa"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 23 Oct 2022 09:48:31 GMT"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "1666518545"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "115"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"73-SLv89A/CxxoLJVbi/XtM7J6aARo\""
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"failed\",\n    \"data\": {},\n    \"errors\": {\n        \"id\": [\n            \"Invalid employee id provided\"\n        ]\n    },\n    \"message\": \"Invalid Parameter(s): id\"\n}"
+						},
+						{
+							"name": "(Success) Edit",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userName\": \"akibTanjim\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3001/api/v1/employees/e1666511889116268106",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3001",
+									"path": [
+										"api",
+										"v1",
+										"employees",
+										"e1666511889116268106"
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 23 Oct 2022 10:09:23 GMT"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "1666519823"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"49-FwdspiMJjnz7N2xHjN4tziiDT0U\""
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/api/v1/employees/e16665118891162476926",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"v1",
+								"employees",
+								"e16665118891162476926"
+							]
+						},
+						"description": "This api deletes an employee.\n\n| **Parameters** | **Required** | **Validation** | **Default** |\n| --- | --- | --- | --- |\n| request.params.id | Yes | N/A | N/A |"
+					},
+					"response": [
+						{
+							"name": "(Error) Delete",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3001/api/v1/employees/e16665091139662820431",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3001",
+									"path": [
+										"api",
+										"v1",
+										"employees",
+										"e16665091139662820431"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 23 Oct 2022 12:35:30 GMT"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "1666528537"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "115"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"73-SLv89A/CxxoLJVbi/XtM7J6aARo\""
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": \"failed\",\n    \"data\": {},\n    \"errors\": {\n        \"id\": [\n            \"Invalid employee id provided\"\n        ]\n    },\n    \"message\": \"Invalid Parameter(s): id\"\n}"
+						},
+						{
+							"name": "(Success) Delete",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3001/api/v1/employees/e16665118891162476926",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3001",
+									"path": [
+										"api",
+										"v1",
+										"employees",
+										"e16665118891162476926"
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 23 Oct 2022 12:36:05 GMT"
+								},
+								{
+									"key": "X-RateLimit-Reset",
+									"value": "1666528597"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"49-8FvDv5klQ2W2GFYg6Ge1nVtTcj0\""
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			],
+			"description": "Employee management collection"
+		}
+	]
+}
