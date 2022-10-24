@@ -14,6 +14,7 @@ import { getEmployees } from "../services/employee";
 
 // css
 import "../assets/css/Home.css";
+import EmployeeEditModal from "../components/Modals/EmployeeEditModal";
 
 let searchTimeout;
 
@@ -29,6 +30,8 @@ const Home = () => {
   const [maxSalaryError, setMaxSalaryError] = useState(undefined);
   const [limit] = useState(10);
   const [reloadTable, setReloadTable] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [selectedEmployee, setSelectedEmployee] = useState(false);
 
   const handleClose = () => setShowBulkUploadModal(false);
   const handleShow = () => setShowBulkUploadModal(true);
@@ -181,7 +184,13 @@ const Home = () => {
               {!loading && employees?.length > 0 && (
                 <>
                   <Col md={12}>
-                    <EmployeeTable data={employees} />
+                    <EmployeeTable
+                      data={employees}
+                      onEditClick={(employee) => {
+                        setSelectedEmployee(employee);
+                        setShowEditModal(true);
+                      }}
+                    />
                   </Col>
                   <Col md={12}>
                     <CustomPagination
@@ -209,6 +218,11 @@ const Home = () => {
             showBlukUploadModal={showBlukUploadModal}
             handleClose={handleClose}
             setReloadTable={setReloadTable}
+          />
+          <EmployeeEditModal
+            showEditModal={showEditModal}
+            handleEditModalClose={() => setShowEditModal(false)}
+            selectedEmployee={selectedEmployee}
           />
         </Row>
       </Container>
